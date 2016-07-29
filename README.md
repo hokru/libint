@@ -17,8 +17,8 @@ derivative integrals.
 Libint1 and Libderiv1 have been in the *ab initio* quantum chemistry package Psi4
 (http://psicode.org/, https://github.com/psi4/psi4) since 2009. Internal to Psi4, it
 has, since about 2014, built with `cmake`, as designed by @andysim.
-@ryanmrichard has reworked and standardized the cmake build and
-extracted suitable for `ExternalProject_Add`. This repository is libint1
+@ryanmrichard has reworked and standardized the cmake build and extracted the
+project until suitable for `ExternalProject_Add`. This repository is libint1
 source wrapped up nicely in CMake. See https://github.com/loriab/libderiv1
 for the accompanying derivative integrals repository.
 
