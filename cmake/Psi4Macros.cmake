@@ -3,18 +3,6 @@
 ###functions/macros.  If you find repetitive code throughout the build scripts
 ###this is the place to add it (make sure you document it too).
 
-#Guard against in-source builds
-#
-# Syntax no_in_source()
-#
-macro(no_in_source)
-if(${CMAKE_BINARY_DIR}==${CMAKE_SOURCE_DIR})
-   message(WARNING "In-source builds are prohibited. Making a build directory")
-   set(CMAKE_BINARY_DIR build)
-   file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR})
-endif()
-endmacro(no_in_source)
-
 #Macro for printing an option in a consistent manner
 #
 #Syntax: print_option(<option to print> <was specified>)

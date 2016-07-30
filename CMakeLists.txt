@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 project(libint LANGUAGES C CXX)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
+################################### Modules ####################################
+include(autocmake_safeguards)
 include(Psi4Macros)
-no_in_source()
 
 ################################### Options ####################################
 option_with_default(LIBINT_OPT_AM "Maximum angular momentum for integrals" 5)
