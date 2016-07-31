@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 project(libint LANGUAGES C CXX)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
 
 ################################### Modules ####################################
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(autocmake_safeguards)
 include(Psi4Macros)
 

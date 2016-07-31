@@ -18,6 +18,7 @@ ExternalProject_Add(libint_library
                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+               -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
                -DBUILD_FPIC=${BUILD_FPIC}
                -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
