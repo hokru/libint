@@ -2,7 +2,7 @@
 # ------------------
 #
 # Libint cmake module.
-# This module sets the following variables:
+# This module sets the following variables in your project:
 #
 # ::
 #
@@ -16,13 +16,20 @@
 #   libint_MAX_AM_ERI - maximum angular momentum level of libint libraries
 #
 #
-# Available components are: shared static MAX_AM_ERI
+# Available components: shared static MAX_AM_ERI
 #
 # ::
 #
 #   shared - search for only shared library
 #   static - search for only static library
 #   [3, 10] - search for library with angular momentum >= this integer
+#
+#
+# Exported targets:
+#
+# ::
+#
+#   int - main libint and libderiv libraries
 #
 #
 # Suggested usage:
@@ -37,8 +44,8 @@
 #
 # ::
 #
-#   libint_DIR - cmake variable, set to directory containing this config file
-#   CMAKE_PREFIX_PATH - cmake variable, set to root directory of this package
+#   libint_DIR - CMake variable, set to directory containing this Config file
+#   CMAKE_PREFIX_PATH - CMake variable, set to root directory of this package
 #   PATH - environment variable, set to bin directory of this package
 
 @PACKAGE_INIT@
@@ -132,7 +139,7 @@ check_required_components(${PACKAGE_NAME})
 
 # don't include targets if this file is being picked up by another
 #   project which has already built this as a subproject
-if(NOT TARGET ${PACKAGE_NAME})
+if(${PACKAGE_NAME}_FOUND AND NOT TARGET ${PACKAGE_NAME})
     add_library(int INTERFACE)
     target_include_directories(int INTERFACE ${${PACKAGE_NAME}_INCLUDE_DIRS})
     target_link_libraries(int INTERFACE ${${PACKAGE_NAME}_LIBRARIES})
