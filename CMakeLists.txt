@@ -19,7 +19,7 @@ if(${BUILD_SHARED_LIBS} AND NOT ${BUILD_FPIC})
     set(BUILD_FPIC ON)
 endif()
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
-option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON 
+option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
                     "-xHost" "-march=native")
 # CODE_COVERAGE should be tested and probably propagated to external projects
 #option_with_flags(ENABLE_CODE_COVERAGE "Enables details on code coverage" OFF
@@ -27,6 +27,15 @@ option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
 
 ################################# Main Project #################################
 add_subdirectory(src)
-configure_file("libintConfig.cmake.in" "libintConfig.cmake" @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/libintConfig.cmake 
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(libintConfig.cmake.in
+                              "${CMAKE_CURRENT_BINARY_DIR}/libintConfig.cmake"
+                              INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/libint")
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/libintConfigVersion.cmake
+                                 VERSION 1.1.4 
+                                 COMPATIBILITY SameMajorVersion)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libintConfig.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/libintConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/libint)
+
