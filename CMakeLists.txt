@@ -15,8 +15,7 @@ option_with_default(LIBINT_OPT_AM "Maximum angular momentum for integrals (min v
 option_with_print(BUILD_SHARED_LIBS "Build libint as shared library" OFF)
 option_with_default(BUILD_FPIC "Libraries will be compiled with position independent code" ON)
 if(${BUILD_SHARED_LIBS} AND NOT ${BUILD_FPIC})
-    message(STATUS "Switching position independent code to ON for shared library")
-    set(BUILD_FPIC ON)
+    message(FATAL_ERROR "BUILD_SHARED_LIBS ON and BUILD_FPIC OFF are incompatible, as shared library requires position independent code")
 endif()
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
@@ -33,7 +32,7 @@ configure_package_config_file(libintConfig.cmake.in
                               "${CMAKE_CURRENT_BINARY_DIR}/libintConfig.cmake"
                               INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/libint")
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/libintConfigVersion.cmake
-                                 VERSION 1.1.4
+                                 VERSION 1.1.6
                                  COMPATIBILITY SameMajorVersion)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libintConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/libintConfigVersion.cmake

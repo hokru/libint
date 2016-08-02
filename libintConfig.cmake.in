@@ -30,7 +30,7 @@
 # ::
 #
 #   find_package(libint)
-#   find_package(libint 1.1.4 EXACT CONFIG REQUIRED COMPONENTS shared 6)
+#   find_package(libint 1.1.6 EXACT CONFIG REQUIRED COMPONENTS shared 6)
 #
 #
 # The following variables can be set to guide the search for this package:
@@ -70,39 +70,37 @@ list(FIND ${PACKAGE_NAME}_FIND_COMPONENTS "shared" _seek_shared)
 list(FIND ${PACKAGE_NAME}_FIND_COMPONENTS "static" _seek_static)
 if(_seek_shared GREATER -1)
     set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_SHARED_LIBRARY_SUFFIX})
-    find_library(${PACKAGE_NAME}_LIBRARY
-                 NAMES int
-                 PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
-                 NO_DEFAULT_PATH)
-    if(${PACKAGE_NAME}_LIBRARY)
-        set(${PACKAGE_NAME}_shared_FOUND 1)
-    else()
-        if(NOT CMAKE_REQUIRED_QUIET)
-            message(STATUS "libintConfig missing component: shared library")
-        endif()
-    endif()
 elseif(_seek_static GREATER -1)
     set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_STATIC_LIBRARY_SUFFIX})
-    find_library(${PACKAGE_NAME}_LIBRARY
-                 NAMES int
-                 PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
-                 NO_DEFAULT_PATH)
-    if(${PACKAGE_NAME}_LIBRARY)
+endif()
+find_library(_temp_int
+             NAMES int
+             PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
+             NO_DEFAULT_PATH)
+find_library(_temp_deriv
+             NAMES deriv
+             PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
+             NO_DEFAULT_PATH)
+if(_temp_int AND _temp_deriv)
+    set(${PACKAGE_NAME}_LIBRARY "${_temp_int} ${_temp_deriv}")
+    if(_seek_shared GREATER -1)
+        set(${PACKAGE_NAME}_shared_FOUND 1)
+    elseif(_seek_static GREATER -1)
         set(${PACKAGE_NAME}_static_FOUND 1)
-    else()
-        if(NOT CMAKE_REQUIRED_QUIET)
-            message(STATUS "libintConfig missing component: static library")
-        endif()
     endif()
 else()
-    find_library(${PACKAGE_NAME}_LIBRARY
-                 NAMES int
-                 PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
-                 NO_DEFAULT_PATH)
-    if(NOT ${PACKAGE_NAME}_LIBRARY)
+    if(_seek_shared GREATER -1)
+        if(NOT CMAKE_REQUIRED_QUIET)
+            message(STATUS "libintConfig missing component: shared libraries (int: ${_temp_int}, deriv: ${_temp_deriv})")
+        endif()
+    elseif(_seek_static GREATER -1)
+        if(NOT CMAKE_REQUIRED_QUIET)
+            message(STATUS "libintConfig missing component: static libraries (int: ${_temp_int}, deriv: ${_temp_deriv})")
+        endif()
+    else()
         set(${PACKAGE_NAME}_FOUND 0)
         if(NOT CMAKE_REQUIRED_QUIET)
-            message(STATUS "libintConfig missing component: library")
+            message(STATUS "libintConfig missing component: libraries (int: ${_temp_int}, deriv: ${_temp_deriv})")
         endif()
     endif()
 endif()
@@ -139,34 +137,4 @@ if(NOT TARGET ${PACKAGE_NAME})
     target_include_directories(int INTERFACE ${${PACKAGE_NAME}_INCLUDE_DIRS})
     target_link_libraries(int INTERFACE ${${PACKAGE_NAME}_LIBRARIES})
 endif()
-
-
-############ libderiv
-
-set(LIBDERIV_CONFIG_PATH ${CMAKE_CURRENT_LIST_DIR})
-find_library(LIBDERIV_LIBRARY NAMES deriv PATHS ${LIBDERIV_CONFIG_PATH}/lib 
-             NO_DEFAULT_PATH)
-find_path(LIBDERIV_INCLUDE_DIR NAMES libderiv/libderiv.h 
-          PATHS ${LIBDERIV_CONFIG_PATH}/include NO_DEFAULT_PATH)
-
-file(READ ${LIBDERIV_INCLUDE_DIR}/libderiv/libderiv.h contents)
-string(REGEX MATCH "define LIBDERIV_MAX_AM1 (.|..)" DA_LINE ${contents})
-set(LIBINT_MAX_AM ${CMAKE_MATCH_1})
-foreach(_comp ${LIBDERIV_FIND_COMPONENTS})
-   if(${_comp} GREATER ${LIBINT_MAX_AM})
-      set(LIBDERIV_FOUND FALSE)
-      message(STATUS 
-       "Found version of libderiv does not support the requested angular momentum"
-      )
-   endif()
-endforeach()
-
-find_package(libint REQUIRED COMPONENTS ${LIBINT_OPT_AM})
-
-add_library(deriv INTERFACE)
-set(LIBDERIV_INCLUDE_DIRS ${LIBDERIV_INCLUDE_DIR} ${LIBINT_INCLUDE_DIR})
-set(LIBDERIV_LIBRARIES ${LIBDERIV_LIBRARY} ${LIBINT_LIBRARIES})
-target_include_directories(deriv INTERFACE ${LIBDERIV_INCLUDE_DIRS})
-target_link_libraries(deriv INTERFACE ${LIBDERIV_LIBRARIES})
-set(LIBDERIV_FOUND TRUE)
 

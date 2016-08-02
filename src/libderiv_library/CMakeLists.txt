@@ -7,7 +7,7 @@ file(GLOB FULL_SRC "${CMAKE_BINARY_DIR}/*.cc")
 file(GLOB FULL_HEAD "${CMAKE_BINARY_DIR}/*.h")
 # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(deriv ${FULL_SRC})
-#target_link_libraries(deriv ${LIBC_INTERJECT})
+target_link_libraries(deriv ${LIBC_INTERJECT})
 set_target_properties(deriv PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 install(FILES ${CMAKE_BINARY_DIR}/libderiv.h
               ${CMAKE_BINARY_DIR}/d1hrr_header.h
