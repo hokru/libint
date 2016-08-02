@@ -22,7 +22,7 @@
 #
 #   shared - search for only shared library
 #   static - search for only static library
-#   [2, 10] - search for library with angular momentum >= this integer
+#   [3, 10] - search for library with angular momentum >= this integer
 #
 #
 # Suggested usage:
@@ -47,7 +47,6 @@ set(PACKAGE_NAME libint)
 set (_valid_components
     static
     shared
-    2
     3
     4
     5

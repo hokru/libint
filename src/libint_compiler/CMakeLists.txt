@@ -9,16 +9,17 @@ add_definitions(-DLIBINT_LONG_DOUBLE=0)
 #
 # Build the compiler
 #
-set(COMPILER_SRC build_libint.c 
-                 emit_hrr_build.c 
-                 emit_hrr_build_macro.c 
+set(COMPILER_SRC build_libint.c
+                 emit_hrr_build.c
+                 emit_hrr_build_macro.c
                  emit_order.c
-                 emit_vrr_build.c 
-                 emit_vrr_build_macro.c 
+                 emit_vrr_build.c
+                 emit_vrr_build_macro.c
                  mem_man.c
                  constants.c
 )
 add_definitions("-std=c99")
 add_executable(libint_compiler ${COMPILER_SRC})
 target_link_libraries(libint_compiler ${LIBM_LIBRARIES})
-install(TARGETS libint_compiler DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS libint_compiler
+        DESTINATION ${CMAKE_INSTALL_PREFIX})
