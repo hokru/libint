@@ -3,8 +3,8 @@ project(libderiv_compiler LANGUAGES C)
 include(GNUInstallDirs)
 
 include_directories(${LIBINT_INCLUDE_DIR})
-math(EXPR LIBDERIV_OPT_AM1 ${LIBINT_OPT_AM}-1) # A.M. level for 1st derivative ERIs
-math(EXPR LIBDERIV_OPT_AM2 ${LIBINT_OPT_AM}-2) # A.M. level for 2nd derivative ERIs
+math(EXPR LIBDERIV_OPT_AM1 ${MAX_AM_ERI}-1) # A.M. level for 1st derivative ERIs
+math(EXPR LIBDERIV_OPT_AM2 ${MAX_AM_ERI}-2) # A.M. level for 2nd derivative ERIs
 math(EXPR LIBDERIV_NEW_AM1 ${LIBDERIV_OPT_AM1}*2)
 math(EXPR LIBDERIV_NEW_AM2 ${LIBDERIV_OPT_AM2}*2)
 math(EXPR LIBDERIV_NEW_AM12 ${LIBDERIV_OPT_AM2}*2)

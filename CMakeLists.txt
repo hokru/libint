@@ -11,7 +11,7 @@ include(autocmake_safeguards)
 include(autocmake_static_library)
 
 ################################### Options ####################################
-option_with_default(LIBINT_OPT_AM "Maximum angular momentum for integrals (min value 3)" 5)
+option_with_default(MAX_AM_ERI "Maximum angular momentum for integrals (min value 3)" 5)
 option_with_print(BUILD_SHARED_LIBS "Build libint as shared library" OFF)
 option_with_default(BUILD_FPIC "Libraries will be compiled with position independent code" ON)
 if(${BUILD_SHARED_LIBS} AND NOT ${BUILD_FPIC})

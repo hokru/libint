@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(libint_compiler LANGUAGES C)
 find_package(M REQUIRED)
-math(EXPR LIBINT_NEW_AM ${LIBINT_OPT_AM}*2)
+math(EXPR LIBINT_NEW_AM ${MAX_AM_ERI}*2)
 add_definitions(-DLIBINT_NEW_AM=${LIBINT_NEW_AM})
-add_definitions(-DLIBINT_OPT_AM=${LIBINT_OPT_AM})
+add_definitions(-DLIBINT_OPT_AM=${MAX_AM_ERI})
 add_definitions(-DLIBINT_MAX_CLASS_SIZE=300)
 add_definitions(-DLIBINT_LONG_DOUBLE=0)
 #
