@@ -39,3 +39,14 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libintConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/libintConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/libint)
 
+
+############ libderiv
+
+cmake_minimum_required(VERSION 3.0)
+project(libderiv LANGUAGES C CXX)
+find_package(libint REQUIRED COMPONENTS ${LIBINT_OPT_AM})
+add_subdirectory(libderiv)
+configure_file("libderivConfig.cmake.in" "libderivConfig.cmake" @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/libderivConfig.cmake 
+        DESTINATION ${CMAKE_INSTALL_PREFIX})cdsgroup@bash:psinet:/theoryfs2/ds/cdsgroup/psi4-compile/psi4rmr2/libderiv1: (master) 
+
