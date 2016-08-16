@@ -1,14 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(libint_compiler LANGUAGES C)
-find_package(M REQUIRED)
-math(EXPR LIBINT_NEW_AM ${MAX_AM_ERI}*2)
-add_definitions(-DLIBINT_NEW_AM=${LIBINT_NEW_AM})
-add_definitions(-DLIBINT_OPT_AM=${MAX_AM_ERI})
-add_definitions(-DLIBINT_MAX_CLASS_SIZE=300)
-add_definitions(-DLIBINT_LONG_DOUBLE=0)
-#
-# Build the compiler
-#
+
+# <<<  Build  >>>
+
 set(COMPILER_SRC build_libint.c
                  emit_hrr_build.c
                  emit_hrr_build_macro.c
@@ -18,8 +12,19 @@ set(COMPILER_SRC build_libint.c
                  mem_man.c
                  constants.c
 )
-add_definitions("-std=c99")
 add_executable(libint_compiler ${COMPILER_SRC})
+find_package(M REQUIRED)
 target_link_libraries(libint_compiler ${LIBM_LIBRARIES})
+set_target_properties(libint_compiler PROPERTIES COMPILE_FLAGS "-std=c99")
+
+math(EXPR LIBINT_NEW_AM ${MAX_AM_ERI}*2)
+target_compile_definitions(libint_compiler
+    PRIVATE -DLIBINT_NEW_AM=${LIBINT_NEW_AM}
+            -DLIBINT_OPT_AM=${MAX_AM_ERI}
+            -DLIBINT_MAX_CLASS_SIZE=300
+            -DLIBINT_LONG_DOUBLE=0)
+
+# <<<  Install  >>>
+
 install(TARGETS libint_compiler
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
+        RUNTIME DESTINATION bin)
