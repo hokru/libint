@@ -44,9 +44,18 @@ The primary CMake option is `MAX_AM_ERI` to control the maximum angular momentum
 4 | 5 | 3 | 4 | 3
 **5** | **6** | **3** | **5** | **4**
 6 | 7 | 4 | 6 | 5
-7 | 
+7 | 8 | 4 |
+8 | 9 | 5 |
 
-The build is also responsive to static/shared toggle `BUILD_SHARED_LIBS`, the install location `CMAKE_INSTALL_PREFIX`, and, of course, `CMAKE_C_COMPILER`, `CMAKE_CXX_COMPILER`, `CMAKE_C_FLAGS`, and `CMAKE_CXX_FLAGS`. See [CMakeLists.txt](CMakeLists.txt) for options details. All these build options should be passed as `cmake -DOPTION`.
+For orientation on an atom such as Neon, the default **5** gets you conventional cc-pV5Z for energies, cc-pVQZ for gradients, cc-pVTZ for frequencies and density-fitted cc-pVQZ for energies, cc-pVTZ for gradients, cc-pVDZ for frequencies.
+
+The build is also responsive to 
+
+* static/shared toggle `BUILD_SHARED_LIBS`
+* the install location `CMAKE_INSTALL_PREFIX`
+* of course, `CMAKE_C_COMPILER`, `CMAKE_CXX_COMPILER`, `CMAKE_C_FLAGS`, and `CMAKE_CXX_FLAGS`
+
+See [CMakeLists.txt](CMakeLists.txt) for options details. All these build options should be passed as `cmake -DOPTION`.
 
 #### Detecting
 
@@ -57,6 +66,11 @@ This project installs with `libintConfig.cmake` and `libintConfigVersion.cmake` 
 
 See [libintConfig.cmake.in](libintConfig.cmake.in) for details of how to detect the Config file and what CMake variables and targets are exported to your project.
 
+#### Using
 
+After `find_package(libint ...)`,
 
-
+* test if package found with `if(${libint_FOUND})` or `if(TARGET libint::libint)`
+* link to library (establishes dependency), including header and definitions configuration with `target_link_libraries(mytarget libint::libint)`
+* include header files using `target_include_directories(mytarget PRIVATE $<TARGET_PROPERTY:libint::libint,INTERFACE_INCLUDE_DIRECTORIES>)`
+* compile target applying `-DUSING_gdma` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:libint::libint,INTERFACE_COMPILE_DEFINITIONS>)`
