@@ -55,7 +55,7 @@ The build is also responsive to
 * the install location `CMAKE_INSTALL_PREFIX`
 * of course, `CMAKE_C_COMPILER`, `CMAKE_CXX_COMPILER`, `CMAKE_C_FLAGS`, and `CMAKE_CXX_FLAGS`
 
-See [CMakeLists.txt](CMakeLists.txt) for options details. All these build options should be passed as `cmake -DOPTION`.
+See [CMakeLists.txt](CMakeLists.txt) for options details and additional options. All these build options should be passed as `cmake -DOPTION`.
 
 #### Detecting
 
@@ -73,4 +73,4 @@ After `find_package(libint ...)`,
 * test if package found with `if(${libint_FOUND})` or `if(TARGET libint::libint)`
 * link to library (establishes dependency), including header and definitions configuration with `target_link_libraries(mytarget libint::libint)`
 * include header files using `target_include_directories(mytarget PRIVATE $<TARGET_PROPERTY:libint::libint,INTERFACE_INCLUDE_DIRECTORIES>)`
-* compile target applying `-DUSING_gdma` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:libint::libint,INTERFACE_COMPILE_DEFINITIONS>)`
+* compile target applying `-DUSING_libint;-DMAX_AM_ERI=N` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:libint::libint,INTERFACE_COMPILE_DEFINITIONS>)`
