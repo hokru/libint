@@ -73,3 +73,9 @@ ExternalProject_Add(libderiv_library
     BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
     INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
     DESTDIR=${CMAKE_BINARY_DIR}/stage)
+
+# Note that libint_library and libderiv_library could build in parallel
+#   if (1) the code generation step of libint_library was moved to the end
+#   of libint_compiler and (2) libderiv_compiler was given a way to detect
+#   the generated files. That code generation step produces libint.h and
+#   that's what libderiv_compiler is waiting for.
