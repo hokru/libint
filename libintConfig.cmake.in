@@ -73,6 +73,7 @@ set (_valid_components
 )
 
 # find includes
+unset(_temp_h CACHE)
 find_path(_temp_h
           NAMES libint/libint.h
           PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_INCLUDEDIR@
@@ -96,10 +97,12 @@ if(_seek_shared GREATER -1)
 elseif(_seek_static GREATER -1)
     set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_STATIC_LIBRARY_SUFFIX})
 endif()
+unset(_temp_int CACHE)
 find_library(_temp_int
              NAMES int
              PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
              NO_DEFAULT_PATH)
+unset(_temp_deriv CACHE)
 find_library(_temp_deriv
              NAMES deriv
              PATHS ${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@
