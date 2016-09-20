@@ -1,8 +1,6 @@
 include(ExternalProject)
 include(GNUInstallDirs)
 
-set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX})
-
 ExternalProject_Add(libint_compiler
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libint_compiler
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}

@@ -23,6 +23,8 @@ include(autocmake_safeguards)
 include(autocmake_static_library)
 
 ################################# Main Project #################################
+set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX})
+
 add_subdirectory(src)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -31,9 +33,9 @@ set(PN ${PROJECT_NAME})
 
 # <<<  Install  >>>
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
-                  ${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}
-                  ${CMAKE_BINARY_DIR}/stage/${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}
+install(DIRECTORY ${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
+                  ${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}
+                  ${STAGED_INSTALL_PREFIX}/share
         DESTINATION ${CMAKE_INSTALL_PREFIX}
         USE_SOURCE_PERMISSIONS
         PATTERN "*header*" EXCLUDE)
