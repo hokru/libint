@@ -25,7 +25,7 @@ endif()
 install(FILES ${CMAKE_BINARY_DIR}/libint.h
               ${CMAKE_BINARY_DIR}/hrr_header.h
               ${CMAKE_BINARY_DIR}/vrr_header.h
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}/libint)
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libint)
 install(TARGETS int
         EXPORT "${PN}Targets"
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

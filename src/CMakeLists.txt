@@ -1,6 +1,8 @@
 include(ExternalProject)
 include(GNUInstallDirs)
 
+set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX})
+
 ExternalProject_Add(libint_compiler
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libint_compiler
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -17,7 +19,7 @@ ExternalProject_Add(libint_library
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libint_library
     DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/libint-src
     # download generalized to generating source by running libint_compiler
-    DOWNLOAD_COMMAND ${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX}/bin/libint_compiler
+    DOWNLOAD_COMMAND ${STAGED_INSTALL_PREFIX}/bin/libint_compiler
     LOG_DOWNLOAD 1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
@@ -65,7 +67,7 @@ ExternalProject_Add(libderiv_library
     CMAKE_CACHE_ARGS -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS} 
                      -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS} 
     DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/libderiv-src
-    DOWNLOAD_COMMAND ${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX}/bin/libderiv_compiler
+    DOWNLOAD_COMMAND ${STAGED_INSTALL_PREFIX}/bin/libderiv_compiler
     LOG_DOWNLOAD 1
     BINARY_DIR ${CMAKE_BINARY_DIR}/libderiv-src
     BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
