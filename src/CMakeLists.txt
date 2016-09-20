@@ -24,7 +24,6 @@ ExternalProject_Add(libint_library
                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                -DCMAKE_INSTALL_LIBDIR=${CMAKE_INSTALL_LIBDIR}
-               -DCMAKE_INSTALL_DATADIR=${CMAKE_INSTALL_DATADIR}
                -DCMAKE_INSTALL_INCLUDEDIR=${CMAKE_INSTALL_INCLUDEDIR}
                -DMAX_AM_ERI=${MAX_AM_ERI}
                -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
@@ -44,7 +43,7 @@ ExternalProject_Add(libderiv_compiler
                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
                -DMAX_AM_ERI=${MAX_AM_ERI}
-               -Dlibintint_DIR=${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/cmake/libint
+               -Dlibintint_DIR=${STAGED_INSTALL_PREFIX}/share/cmake/libint
     CMAKE_CACHE_ARGS -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS} 
     INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
     DESTDIR=${CMAKE_BINARY_DIR}/stage)
@@ -57,13 +56,12 @@ ExternalProject_Add(libderiv_library
                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
                -DCMAKE_INSTALL_LIBDIR=${CMAKE_INSTALL_LIBDIR}
-               -DCMAKE_INSTALL_DATADIR=${CMAKE_INSTALL_DATADIR}
                -DCMAKE_INSTALL_INCLUDEDIR=${CMAKE_INSTALL_INCLUDEDIR}
                -DMAX_AM_ERI=${MAX_AM_ERI}
                -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
                -DBUILD_FPIC=${BUILD_FPIC}
                -DLIBC_INTERJECT=${LIBC_INTERJECT}
-               -Dlibintint_DIR=${CMAKE_BINARY_DIR}/stage${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/cmake/libint
+               -Dlibintint_DIR=${STAGED_INSTALL_PREFIX}/share/cmake/libint
     CMAKE_CACHE_ARGS -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS} 
                      -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS} 
     DOWNLOAD_DIR ${CMAKE_BINARY_DIR}/libderiv-src
