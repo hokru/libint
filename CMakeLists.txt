@@ -44,7 +44,7 @@ install(DIRECTORY ${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
 
     # explicit "share" not "DATADIR" for CMake search path
 set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
-configure_package_config_file(${PN}Config.cmake.in
+configure_package_config_file(cmake/${PN}Config.cmake.in
                               "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
                               INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake

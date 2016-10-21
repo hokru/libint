@@ -64,7 +64,7 @@ This project installs with `libintConfig.cmake` and `libintConfigVersion.cmake` 
 * `find_package(libint)` - find any libint libraries and headers
 * `find_package(libint 1.1.6 EXACT CONFIG REQUIRED COMPONENTS shared 6)` - find libint exactly version 1.1.6 built with shared libraries and `MAX_AM_ERI` >= 6 or die trying
 
-See [libintConfig.cmake.in](libintConfig.cmake.in) for details of how to detect the Config file and what CMake variables and targets are exported to your project.
+See [libintConfig.cmake.in](cmake/libintConfig.cmake.in) for details of how to detect the Config file and what CMake variables and targets are exported to your project.
 
 #### Using
 

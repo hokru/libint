@@ -10,7 +10,7 @@
 #   libint_VERSION - libint version in format Major.Minor.Release
 #   libint_INCLUDE_DIRS - Directories where libint and libderiv headers are located.
 #   libint_INCLUDE_DIR - same as DIRS
-#XXX_DEFINITIONS: Definitions necessary to use XXX.h
+#   libint_DEFINITIONS - definitions necessary to use libint
 #   libint_LIBRARIES - libint and libderiv libraries to link against.
 #   libint_LIBRARY - same as LIBRARIES
 #   libint_MAX_AM_ERI - maximum angular momentum level of libint libraries
@@ -153,6 +153,7 @@ foreach(_comp IN LISTS ${PN}_FIND_COMPONENTS)
         endif()
     endif()
 endforeach()
+set(${PN}_DEFINITIONS "USING_${PN};MAX_AM_ERI=${${PN}_MAX_AM_ERI}")
 
 check_required_components(${PN})
 
@@ -171,7 +172,7 @@ if(NOT TARGET ${PN}::${PN})
     set_target_properties(${PN}::${PN} PROPERTIES
         IMPORTED_LOCATION                 "${_temp_deriv}"
         INTERFACE_INCLUDE_DIRECTORIES     "${${PN}_INCLUDE_DIRS}"
-        INTERFACE_COMPILE_DEFINITIONS     "USING_${PN};MAX_AM_ERI=${${PN}_MAX_AM_ERI}"
+        INTERFACE_COMPILE_DEFINITIONS     "${${PN}_DEFINITIONS}"
         IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
         INTERFACE_LINK_LIBRARIES          ${PN}::int)
 endif()
