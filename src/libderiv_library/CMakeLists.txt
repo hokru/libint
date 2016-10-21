@@ -14,10 +14,9 @@ file(GLOB sources_list "${CMAKE_BINARY_DIR}/*.cc" vrr_build.c)
     # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(deriv ${sources_list})
 target_include_directories(deriv PRIVATE ${CMAKE_BINARY_DIR})
-    # acquire libint.h
+    # acquire libint.h and libint library
 find_package(libintint CONFIG REQUIRED)
-target_include_directories(deriv PRIVATE
-    $<TARGET_PROPERTY:libint::int,INTERFACE_INCLUDE_DIRECTORIES>)
+target_link_libraries(deriv PRIVATE libint::int)
 
 set_target_properties(deriv PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 if(${BUILD_SHARED_LIBS})
