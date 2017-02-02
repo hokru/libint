@@ -15,7 +15,14 @@ set(COMPILER_SRC build_libint.c
 add_executable(libint_compiler ${COMPILER_SRC})
 find_package(M REQUIRED)
 target_link_libraries(libint_compiler ${LIBM_LIBRARIES})
-set_target_properties(libint_compiler PROPERTIES COMPILE_FLAGS "-std=c99")
+
+
+
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "PGI")
+  set_target_properties(libint_compiler PROPERTIES COMPILE_FLAGS "-c99")
+else()
+  set_target_properties(libint_compiler PROPERTIES COMPILE_FLAGS "-std=c99")
+endif()
 
 math(EXPR LIBINT_NEW_AM ${MAX_AM_ERI}*2)
 target_compile_definitions(libint_compiler
